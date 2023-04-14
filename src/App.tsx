@@ -23,8 +23,17 @@ export default function App() {
       <header className="App-header">
         <p>
           {postQuery.isLoading && ("Loading...")}
+          
           {postQuery.isError && (<pre>{JSON.stringify(postQuery.error)}</pre>)}
-          {!postQuery.isLoading && !postQuery.isError ? ("Here") : "" }
+
+          {!postQuery.isLoading && !postQuery.isError ? (
+            <>
+              {postQuery.data.map(post => (
+                <div className="" key={post.id}>{post.title}</div>
+              ))}
+            </>
+            ) : ("") 
+          }
         </p>
       </header>
     </div>
