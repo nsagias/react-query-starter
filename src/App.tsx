@@ -14,16 +14,17 @@ export default function App() {
   // takes a query function
   const postQuery = useQuery({
     queryKey: ["posts"],
-    queryFn: () => wait(1000).then(() => [...POSTS])
+    queryFn: () => wait(2000).then(() => [...POSTS])
+    // queryFn: () => Promise.reject("Error Message")
   })
 
-  // check if loading
-  if (postQuery.isLoading) return <h1> Loading ... </h1>
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Here
+          {postQuery.isLoading && ("Loading...")}
+          {postQuery.isError && (<pre>{JSON.stringify(postQuery.error)}</pre>)}
+          {!postQuery.isLoading && !postQuery.isError ? ("Here") : "" }
         </p>
       </header>
     </div>
